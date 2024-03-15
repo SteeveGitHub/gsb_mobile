@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/nomTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nom"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/prenomTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prenom"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/numeroTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/numero"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/adresseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/adresse"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/cpTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/code_postal"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/cvCarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chevaux_fiscaux"
+        android:textSize="18sp" />
+
+
+
+
+
+</LinearLayout>

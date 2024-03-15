@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="email">email</string>
+    <string name="nom">nom</string>
+    <string name="code_postal">Code postal</string>
+    <string name="chevaux_fiscaux">Chevaux fiscaux</string>
+    <string name="adresse">adresse</string>
+    <string name="numero">numero</string>
+    <string name="prenom">prenom</string>
+</resources>
