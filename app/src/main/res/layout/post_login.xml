@@ -54,8 +54,28 @@
         android:text="@string/chevaux_fiscaux"
         android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/fraisTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <ListView
         android:id="@+id/fraisListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <TextView
+        android:id="@+id/horsForfaitTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/horsForfaitListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

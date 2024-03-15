@@ -126,6 +126,12 @@ public class PostLoginActivity extends AppCompatActivity {
         ListView fraisListView = findViewById(R.id.fraisListView);
         fraisListView.setAdapter(adapter);
 
+        TextView fraisTitleTextView = findViewById(R.id.fraisTitleTextView);
+        fraisTitleTextView.setText("Fiches de frais");
+
+        TextView horsForfaitTitleTextView = findViewById(R.id.horsForfaitTitleTextView);
+        horsForfaitTitleTextView.setText("Fiches hors forfait");
+
         Intent intent = getIntent();
         String userInformation = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
