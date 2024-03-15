@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         if (response != null && !response.trim().isEmpty()) {
                             JSONObject jsonObject = new JSONObject(response.trim());
-                            Log.d("Response", jsonObject.toString());
                             if (jsonObject.has(STATUS) && jsonObject.getInt(STATUS) == SUCCESS_STATUS) {
                                 Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, PostLoginActivity.class);

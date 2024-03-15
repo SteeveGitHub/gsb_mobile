@@ -54,8 +54,10 @@
         android:text="@string/chevaux_fiscaux"
         android:textSize="18sp" />
 
-
-
-
+    <ListView
+        android:id="@+id/fraisListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 </LinearLayout>
