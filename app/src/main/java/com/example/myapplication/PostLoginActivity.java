@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +31,10 @@ import java.util.Map;
 public class PostLoginActivity extends AppCompatActivity {
 
     private ArrayList<JSONObject> fraisList;
-    private FraisAdapter adapter;
+    private FraisAdapter fraisAdapter;
+
+    private ArrayList<JSONObject> horsForfaitList;
+    private FraisAdapter horsForfaitAdapter;
 
     public class FraisAdapter extends ArrayAdapter<JSONObject> {
         public FraisAdapter(Context context, ArrayList<JSONObject> fraisList) {
@@ -78,33 +83,35 @@ public class PostLoginActivity extends AppCompatActivity {
         String url = "https://trincal.alwaysdata.net/api/findFees.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
+                    Log.d("API Response", response); // Ajoutez cette ligne pour imprimer la réponse de l'API
+
                     try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getInt("status") == 200) {
-                            JSONArray fraisForfaitArray = jsonObject.getJSONArray("fraisForfait");
-                            for (int i = 0; i < fraisForfaitArray.length(); i++) {
-                                JSONObject frais = fraisForfaitArray.getJSONObject(i);
-                                fraisList.add(frais);
-                            }
-                            JSONArray fraisHorsForfaitArray = jsonObject.getJSONArray("fraisHorsForfait");
-                            for (int i = 0; i < fraisHorsForfaitArray.length(); i++) {
-                                JSONObject frais = fraisHorsForfaitArray.getJSONObject(i);
-                                fraisList.add(frais);
-                            }
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(PostLoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                        JSONObject jsonResponse = new JSONObject(response);
+                        JSONArray fraisForfaitArray = jsonResponse.getJSONArray("fraisForfait");
+                        JSONArray fraisHorsForfaitArray = jsonResponse.getJSONArray("fraisHorsForfait");
+
+                        for (int i = 0; i < fraisForfaitArray.length(); i++) {
+                            JSONObject frais = fraisForfaitArray.getJSONObject(i);
+                            fraisList.add(frais);
                         }
+
+                        for (int i = 0; i < fraisHorsForfaitArray.length(); i++) {
+                            JSONObject frais = fraisHorsForfaitArray.getJSONObject(i);
+                            horsForfaitList.add(frais);
+                        }
+
+                        fraisAdapter.notifyDataSetChanged(); // Assurez-vous que cette ligne est bien exécutée
+                        horsForfaitAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Toast.makeText(PostLoginActivity.this, "Failed to parse frais", Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> Toast.makeText(PostLoginActivity.this, "Failed to fetch frais", Toast.LENGTH_LONG).show()) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", "Bearer " + token);
-                return params;
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
             }
         };
 
@@ -116,21 +123,19 @@ public class PostLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.post_login);
+        setContentView(R.layout.post_login); // Assurez-vous que activity_post_login.xml existe dans res/layout
 
-        // Initialisez la liste et l'adaptateur
-        fraisList = new ArrayList<>();
-        adapter = new FraisAdapter(this, fraisList);
-
-        // Associez l'adaptateur à la ListView
         ListView fraisListView = findViewById(R.id.fraisListView);
-        fraisListView.setAdapter(adapter);
+        ListView horsForfaitListView = findViewById(R.id.horsForfaitListView);
 
-        TextView fraisTitleTextView = findViewById(R.id.fraisTitleTextView);
-        fraisTitleTextView.setText("Fiches de frais");
+        fraisList = new ArrayList<>();
+        horsForfaitList = new ArrayList<>();
 
-        TextView horsForfaitTitleTextView = findViewById(R.id.horsForfaitTitleTextView);
-        horsForfaitTitleTextView.setText("Fiches hors forfait");
+        fraisAdapter = new FraisAdapter(this, fraisList); // Changez 'adapter' en 'fraisAdapter'
+        horsForfaitAdapter = new FraisAdapter(this, horsForfaitList);
+
+        fraisListView.setAdapter(fraisAdapter);
+        horsForfaitListView.setAdapter(horsForfaitAdapter);
 
         Intent intent = getIntent();
         String userInformation = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
@@ -141,8 +146,6 @@ public class PostLoginActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(userInformation);
             String token = jsonObject.getString("token");
             fetchFrais(token);
-
-            adapter = new FraisAdapter(this, fraisList);
 
             String numero = jsonObject.getString("numero");
             String adresse = jsonObject.getString("adresse");
@@ -170,5 +173,15 @@ public class PostLoginActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        Button logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostLoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

@@ -58,26 +58,35 @@
         android:id="@+id/fraisTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/frais_forfait"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <ListView
         android:id="@+id/fraisListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="191dp" />
 
     <TextView
         android:id="@+id/horsForfaitTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/frais_hors_forfait"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <ListView
         android:id="@+id/horsForfaitListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="197dp" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/logout"
+        android:textSize="18sp" />
 
 </LinearLayout>

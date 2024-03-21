@@ -7,4 +7,7 @@
     <string name="adresse">adresse</string>
     <string name="numero">numero</string>
     <string name="prenom">prenom</string>
+    <string name="logout">Logout</string>
+    <string name="frais_hors_forfait">Frais Hors Forfait</string>
+    <string name="frais_forfait">Frais forfait</string>
 </resources>
